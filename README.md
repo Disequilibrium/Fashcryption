@@ -1,0 +1,2 @@
+# Fashcryption
+Text Encryptor/Decryptor.
