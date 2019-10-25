@@ -19,54 +19,46 @@ import java.awt.Color;
  */
 public class UI extends JFrame
 {
-static UI theUI;
 
-JPanel pnPanel0;
-JTabbedPane tbpTabbedPane0;
+	//jvider generated vars
+	static UI theUI;
 
-JPanel pnPanel6;
+	JPanel pnPanel0;
+	JTabbedPane tbpTabbedPane0;
 
-JPanel pnPanel16;
-JTextArea taInputText;
-JLabel lbLabel3;
-JTextField tfKeyText;
-JButton btDecBtn;
-JButton btEncBtn;
+	JPanel pnPanel6;
 
-JPanel pnPanel21;
-JTextArea taOutputText;
+	JPanel pnPanel16;
+	JTextArea taInputText;
+	JLabel lbLabel3;
+	JTextField tfKeyText;
+	JButton btDecBtn;
+	JButton btEncBtn;
 
-JPanel pnPanel7;
-JLabel lbLabel5;
+	JPanel pnPanel21;
+	JTextArea taOutputText;
 
-public static void main( String args[] )
-{
-    try
-    {
-        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-    }
-    catch ( ClassNotFoundException e )
-    {
-    }
-    catch ( InstantiationException e )
-    {
-    }
-    catch ( IllegalAccessException e )
-    {
-    }
-    catch ( UnsupportedLookAndFeelException e )
-    {
-    }
-    theUI = new UI();
-}
+	JPanel pnPanel7;
+	JLabel lbLabel5;
+
+
+	//my variables
+	private Controller controller;
 
 /**
  * UI Constructor
  */
-public UI()
+public UI(Controller input)
 {
-    super( "TITLE" );
 
+
+
+    super( "Fashcryption 1.0" );
+    
+    //setting up the controller input
+    this.controller = input;
+    
+    //jvider generated script start
     pnPanel0 = new JPanel();
     pnPanel0.setBorder( BorderFactory.createTitledBorder( "Fashcryption V1" ) );
     GridBagLayout gbPanel0 = new GridBagLayout();
@@ -134,6 +126,7 @@ public UI()
     pnPanel6.add( pnPanel16 );
 
     btDecBtn = new JButton( "Decrypt"  );
+    btDecBtn.setName("Decrypt");
     gbcPanel6.gridx = 0;
     gbcPanel6.gridy = 9;
     gbcPanel6.gridwidth = 6;
@@ -146,6 +139,7 @@ public UI()
     pnPanel6.add( btDecBtn );
 
     btEncBtn = new JButton( "Encrypt"  );
+    btEncBtn.setName("Encrypt");
     gbcPanel6.gridx = 7;
     gbcPanel6.gridy = 9;
     gbcPanel6.gridwidth = 6;
@@ -222,5 +216,22 @@ public UI()
     setContentPane( pnPanel0 );
     pack();
     setVisible( true );
+    //jvider generated script end
+    
+    //my script
+    btDecBtn.addActionListener(controller);
+    btEncBtn.addActionListener(controller);
 }
+
+	public String getInput(){
+		return this.taInputText.getText();
+	}
+
+	public String getKey(){
+		return this.tfKeyText.getText();
+	}
+
+	public void setOutput(String input){
+		this.taOutputText.setText(input);
+	}
 }

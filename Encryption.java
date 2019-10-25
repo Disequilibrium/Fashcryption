@@ -24,29 +24,53 @@ public class Encryption{
             output += new String(twoFish.blockEncrypt(input.getBytes(), index, key));
             index += 16;
         }
-
+	/*
         //encryption validation
         String validInput = decrypt(output, key);
         if(input.equals(validInput))
             return output;
         else //exception handling
-            return null;
+            return "Encryption failed.";
+    	*/
+	return output;
     }
 
     public static String decrypt(String input, Object key){
+		
+	//input conditions    
+//	if(input.length() % 16 != 0){
+//		return "Decryption failed.";
+//	}
+//	else{
+		int blockNum = (int)(input.length() / 16);
+		String output = "";
+		int index = 0;
 
-
-        return null;
+		//block by block decryption
+		
+        	for(int i = 1; i <= blockNum; i++){
+            		output += new String(twoFish.blockDecrypt(input.getBytes(), index, key));
+            		index += 16;
+        	}
+		
+		return output;
+//	}
     }
 
-    public static Object makeKey(String input) throws InvalidKeyException{
+    public static Object makeKey(String input){
 
         Object outputKey;
         byte[] keyBytes;
 
         input = DigestUtils.md5Hex(input).toUpperCase();
         keyBytes = input.getBytes();
-        outputKey = twoFish.makeKey(keyBytes);
+	try{
+        	outputKey = twoFish.makeKey(keyBytes);
+	}
+	catch(InvalidKeyException e){
+		outputKey = null;
+		e.printStackTrace();
+	}
 
         return outputKey;
     }
